@@ -97,7 +97,7 @@ ENTITY_DAMAGE = {
     'Enemy2': 1,
     'Enemy2Shot': 15,
     'Enemy3': 1,
-    'Enemy3Shot': 15,
+    'Enemy3Shot': 30,
 }
 
 ENTITY_SCORE = {
@@ -126,7 +126,7 @@ ENTITY_SCORE = {
     'Enemy1Shot': 0,
     'Enemy2': 125,
     'Enemy2Shot': 0,
-    'Enemy3': 125,
+    'Enemy3': 160,
     'Enemy3Shot': 0,
 }
 
@@ -162,7 +162,8 @@ SPAWN_TIME = 4000
 
 # T
 TIMEOUT_STEP = 100  # 100ms
-TIMEOUT_LEVEL = 20000  # 20s
+TIMEOUT_LEVEL =20000  # 20s
+TIMEOUT_LEVEL3 =40000  # 40s
 # W
 WIN_WIDTH = 576
 WIN_HEIGHT = 324

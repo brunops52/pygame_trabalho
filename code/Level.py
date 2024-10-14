@@ -8,7 +8,7 @@ from pygame import Surface, Rect
 from pygame.font import Font
 
 from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN, EVENT_TIMEOUT, \
-    TIMEOUT_STEP, TIMEOUT_LEVEL
+    TIMEOUT_STEP, TIMEOUT_LEVEL, TIMEOUT_LEVEL3
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -18,9 +18,12 @@ from code.Player import Player
 
 class Level:
     def __init__(self, window: Surface, name: str, game_mode: str, player_score: list[int]):
-        self.timeout = TIMEOUT_LEVEL
         self.window = window
         self.name = name
+        if self.name == "Level3":
+            self.timeout = TIMEOUT_LEVEL3
+        else:
+            self.timeout = TIMEOUT_LEVEL
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
@@ -31,6 +34,7 @@ class Level:
             player = EntityFactory.get_entity('Player2')
             player.score = player_score[1]
             self.entity_list.append(player)
+
         pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 100ms
 
@@ -57,8 +61,12 @@ class Level:
                     pygame.quit()
                     sys.exit()
                 if event.type == EVENT_ENEMY:
-                    choice = random.choice(('Enemy1', 'Enemy2'))
-                    self.entity_list.append(EntityFactory.get_entity(choice))
+                    if self.name == "Level3":
+                        self.entity_list.append(EntityFactory.get_entity("Enemy3"))
+                    else:
+                        choice = random.choice(('Enemy1', 'Enemy2'))
+                        self.entity_list.append(EntityFactory.get_entity(choice))
+
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP
                     if self.timeout == 0:
